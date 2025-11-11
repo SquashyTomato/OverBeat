@@ -59,12 +59,21 @@ export default class WindowHandler {
 
         this.mainWindow.setTitle('OverBeat');
 
-        const menu: any[] = [{
-            label: 'File',
-            submenu: [
-                { label: 'Exit', accelerator: 'CmdOrCtrl+Q', role: 'quit' },
-            ],
-        }];
+        const menu: any[] = [
+            {
+                label: 'File',
+                submenu: [
+                    { label: 'Exit', accelerator: 'CmdOrCtrl+Q', role: 'quit' },
+                ],
+            },
+            {
+                label: 'View',
+                submenu: [
+                    { label: 'Reload', accelerator: 'CmdOrCtrl+R', role: 'reload' },
+                    { label: 'Toggle Developer Tools', accelerator: 'CmdOrCtrl+I', role: 'toggleDevTools' },
+                ],
+            }
+        ];
 
         const menuBar = Menu.buildFromTemplate(menu);
         Menu.setApplicationMenu(menuBar);

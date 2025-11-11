@@ -11,26 +11,39 @@
     "main": "dist/main.js",
     "packageManager": "yarn@1.22.22",
     "scripts": {
-        "dev": "concurrently --kill-others -n TSC,Electron \"yarn tsc --watch\" \"electron .\"",
-        "build": "tsc",
+        "dev": "cross-env NODE_ENV=development concurrently --kill-others -n TSC,Vite,Electron \"tsc --watch\" \"vite\" \"electron .\"",
+        "build": "vite build && tsc",
         "start": "electron .",
         "lint": "eslint src/**/*.{ js,cjs,mjs,ts }",
         "lint:fix": "eslint src/**/*.{ js,cjs,mjs,ts } --fix"
     },
     "dependencies": {
-        "electron": "^39.1.2"
+        "electron": "^39.1.2",
+        "express": "^5.1.0",
+        "react": "^19.2.0",
+        "react-dom": "^19.2.0"
     },
     "devDependencies": {
         "@eslint/js": "^9.39.1",
+        "@tailwindcss/vite": "^4.1.17",
         "@types/electron": "^1.6.12",
         "@types/eslint": "^9.6.1",
+        "@types/express": "^5.0.5",
         "@types/node": "^24.10.0",
+        "@types/react": "^19.2.3",
+        "@types/react-dom": "^19.2.2",
+        "@vitejs/plugin-react": "^5.1.0",
         "concurrently": "^9.2.1",
+        "cross-env": "^10.1.0",
         "eslint": "^9.39.1",
         "eslint-config-prettier": "^10.1.8",
+        "eslint-plugin-react-hooks": "^7.0.1",
+        "eslint-plugin-react-refresh": "^0.4.24",
         "prettier": "^3.6.2",
+        "tailwindcss": "^4.1.17",
         "tslib": "^2.8.1",
         "typescript": "^5.9.3",
-        "typescript-eslint": "^8.46.4"
+        "typescript-eslint": "^8.46.4",
+        "vite": "^7.2.2"
     }
 }

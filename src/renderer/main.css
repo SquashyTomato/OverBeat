@@ -1,0 +1,14 @@
+/* Import Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+/* Import Tailwind CSS */
+@import 'tailwindcss';
+
+/* Define Tailwind Theme */
+@theme {
+    --font-sans: "Nunito Sans", sans-serif;
+    --font-serif: "Nunito", sans-serif;
+    --color-tourney-blue: #1315A7;
+    --color-tourney-red: #B31A67;
+    --color-tourney-gray: #3B3B3B;
+}
