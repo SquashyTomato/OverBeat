@@ -9,13 +9,24 @@ const __dirname = path.dirname(__filename);
 
 // Module Class
 export default class WindowHandler {
+    private static instance: WindowHandler | null = null;
     private mainWindow: BrowserWindow | null = null;
+    private windowReadyResolve!: (window: BrowserWindow) => void;
+    public windowReady: Promise<BrowserWindow>;
 
     constructor() {
-        this.init();
+        this.initInstance();
+        this.windowReady = new Promise((resolve) => {
+            this.windowReadyResolve = resolve;
+        });
     };
 
-    public init = (): void => {
+    public static getInstance = (): WindowHandler => {
+        if (!WindowHandler.instance) WindowHandler.instance = new WindowHandler();
+        return WindowHandler.instance;
+    };
+
+    public initInstance = (): void => {
         app.on('ready', () => this.createWindow());
         app.on('activate', () => this.onActivate());
         app.on('window-all-closed', () => this.onWindowsClosed());
@@ -30,28 +41,27 @@ export default class WindowHandler {
     };
 
     private createWindow = (): void => {
+        const isDev = process.env.NODE_ENV === 'development';
+
         this.mainWindow = new BrowserWindow({
             width: 1280,
             height: 720,
             minWidth: 800,
             minHeight: 600,
             webPreferences: {
-                preload: path.join(__dirname, 'preload.js'),
+                preload: path.join(__dirname, (isDev ? '../preload.js' : '../preload.js')),
+                contextIsolation: true,
+                nodeIntegration: false,
             },
         });
 
         this.setupWindow();
 
-        if (process.env.NODE_ENV === 'development') {
-            this.mainWindow.loadURL('http://localhost:5173'); // Vite dev server
-            this.mainWindow.webContents.openDevTools();
-        } else {
-            this.mainWindow.loadFile(path.join(__dirname, '../renderer/index.html'));
-        }
+        if (isDev) this.mainWindow.loadURL('http://localhost:5173'); // Vite Dev Server URL
+        else this.mainWindow.loadFile(path.join(__dirname, '../renderer/index.html')); // Production Build
 
-        this.mainWindow.on('closed', () => {
-            this.mainWindow = null;
-        });
+        this.mainWindow.once('ready-to-show', () => this.windowReadyResolve(this.mainWindow!));
+        this.mainWindow.on('closed', () => this.mainWindow = null);
     };
 
     private setupWindow = (): void => {
