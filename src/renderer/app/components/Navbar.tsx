@@ -1,3 +1,9 @@
+// Import Modules
+import { NavLink } from 'react-router-dom';
+
+// Import Components
+import ProcessStatusIndicator from "./ProcessStatusIndicator.tsx";
+
 // Component Function
 export default function Component() {
     return (
@@ -6,14 +12,11 @@ export default function Component() {
                 <h1 className="text-xl font-serif font-semibold text-stone-50">OverBeat</h1>
             </div>
             <div className="flex space-x-6">
-                <a href="#" className="text-stone-200 hover:text-stone-50">Home</a>
-                <a href="#" className="text-stone-200 hover:text-stone-50">Tournament</a>
-                <a href="#" className="text-stone-200 hover:text-stone-50">Stream</a>
-                <a href="#" className="text-stone-200 hover:text-stone-50">Overlay</a>
-                <a href="#" className="text-stone-200 hover:text-stone-50">Settings</a>
+                <NavLink to="/" className="text-stone-200 hover:text-stone-50">Home</NavLink>
+                <NavLink to="/settings" className="text-stone-200 hover:text-stone-50">Settings</NavLink>
             </div>
             <div>
-                <button className="bg-stone-600 text-stone-50 text-sm px-3 py-1 rounded">All Services OK</button>
+                <ProcessStatusIndicator />
             </div>
         </nav>
     );

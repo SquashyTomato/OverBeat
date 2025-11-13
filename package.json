@@ -13,7 +13,7 @@
     "scripts": {
         "dev": " yarn build && cross-env NODE_ENV=development concurrently --kill-others -n TSC,Vite,Electron \"tsc --watch\" \"vite\" \"electron .\"",
         "build": "vite build && tsc && tsc -p tsconfig.preload.json",
-        "start": "cross-env NODE_ENV=development electron .",
+        "start": "cross-env NODE_ENV=production electron .",
         "lint": "eslint src/**/*.{ js,cjs,mjs,ts }",
         "lint:fix": "eslint src/**/*.{ js,cjs,mjs,ts } --fix"
     },
@@ -21,7 +21,8 @@
         "electron": "^39.1.2",
         "express": "^5.1.0",
         "react": "^19.2.0",
-        "react-dom": "^19.2.0"
+        "react-dom": "^19.2.0",
+        "react-router-dom": "^7.9.5"
     },
     "devDependencies": {
         "@eslint/js": "^9.39.1",

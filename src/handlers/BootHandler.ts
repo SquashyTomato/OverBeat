@@ -24,6 +24,8 @@ export default class BootHandler {
         });
         httpHandler.listen();
         this.log('HTTP Handler Initialized');
+
+        this.mainWindow?.webContents.send('boot:complete');
     };
 
     private log(message: string): void {
